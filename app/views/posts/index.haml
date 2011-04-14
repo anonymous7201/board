@@ -1,0 +1,8 @@
+= render :template => 'posts/create'
+#thread_list
+	= render :partial => 'thread', :collection => @posts
+#pages
+	-if @posts.previous_page
+		%a{ :href => "/page/#{@posts.previous_page}", :id => 'prevpage' } << предыдущая страница
+	-if @posts.next_page
+		%a{ :href => "/page/#{@posts.next_page}", :id => 'nextpage' } следующая страница >>

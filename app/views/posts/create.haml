@@ -1,0 +1,29 @@
+#thread_form_container
+	#thread_button Создать&nbsp;&nbsp;тред
+	#thread_form_wrapper
+		%form{ :action => write_path, :method => 'post', :enctype => 'multipart/form-data', :id => 'thread_form' }
+			#errors
+			#form_top
+				= render :template => 'editbox'
+			#form_center
+				%textarea{ :name => 'message', :id => 'message' }
+			#form_bottom
+				#file
+					%p
+						%span Картинка:
+						%label
+							%input{ :type => 'radio', :id => 'ffpicture', :name => 'hui', :checked => true }		
+							файл
+						%label
+							%input{ :type => 'radio', :id => 'flpicture', :name => 'hui' }		
+							по ссылке
+					%p
+						%input{ :type => 'file', :id => 'fpicture', :name => 'fpicture' }
+						%input{ :type => 'text', :id => 'lpicture', :name => 'lpicture' }
+					-if $settings[:captcha]
+						%p
+							%input{ :type => 'submit', :id => 'submitt', :value => 'отправить' }
+				-if $settings[:captcha]
+					= render :template => 'captcha'
+				-else
+					%input{ :type => 'submit', :id => 'submitt', :value => 'отправить', :style => 'float:right;padding:4px;' }

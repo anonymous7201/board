@@ -1,0 +1,24 @@
+#post_container {
+	margin-top: 40px;
+}
+
+#post {
+	margin: 20px;
+}
+
+#post_container span {
+	font-size: 11px;
+	color: #666;
+}
+
+#post textarea {
+	width: 500px;
+	height: 200px;
+}
+
+#post_container label {
+	margin-top: 10px;
+	display: block;
+		font-size: 11px;
+	color: #666;
+}

@@ -1,0 +1,25 @@
+-if params[:action] == 'view'
+	-if @seen
+		-if post.number > @seen
+			-puts @newset
+			-if @newset != true
+				-@newset = true
+				-puts @newset
+				%a{ :name => 'new' }
+				#new_replies
+					Новые посты:
+.post_container{ :id => post.id }
+	.post
+		.body
+			-if post.picture
+				.picture
+					%a{ :href => post.picture.path, :target => '_blank' }
+						%img{ :src => post.picture.thumbnail_path }
+			%blockquote= post.message.html_safe
+		.header
+			%a{ :href => "##{post.id}", :class => 'comment_link' }= "##{post.id}"
+			&nbsp;&nbsp;
+			=verbose_date post.created_at	
+			%a{ :href => '#reply', :class => 'reply_link' }<>
+				ответить
+		

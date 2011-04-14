@@ -1,0 +1,36 @@
+%script{ :type => 'text/javascript' } 
+	new_replies = #{@new}; |
+	all_replies = #{@op_post.replies};
+
+#thread{ :class => @op_post.id }
+	= render :partial => 'thread', :object => @op_post
+	%br
+	%hr
+	= render :partial => 'post', :collection => @replies
+
+
+#reply_form_container
+	-url = url_for :action => 'reply', :id => @op_post.id
+	-et = 'multipart/form-data'
+	%form{ :id => 'reply_form', :action => url, :method => 'post', :enctype => et }
+		%input{ :type => 'hidden', :name => 'idd', :id => 'idd', :value => @op_post.id }
+		#errors
+		#form_top 
+			= render :template => 'editbox'
+		#form_center
+			%textarea{ :name => 'message', :id => 'message' }
+		#form_bottom
+			#file
+				%p
+					%span{ :id => 'file_switch' } приложить картинку
+					%label
+						%input{ :type => 'radio', :id => 'ffpicture', :name => 'hui', :checked => true }		
+						файл
+					%label
+						%input{ :type => 'radio', :id => 'flpicture', :name => 'hui' }		
+						по ссылке
+				%p
+					%input{ :type => 'file', :id => 'fpicture', :name => 'fpicture' }
+					%input{ :type => 'text', :id => 'lpicture', :name => 'lpicture' }
+			%input{ :type => 'submit', :id => 'submitt', :value => 'отправить' }
+	

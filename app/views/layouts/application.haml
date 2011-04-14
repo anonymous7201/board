@@ -1,0 +1,24 @@
+!!! XHTML
+%html
+	%head
+		%meta{ :'http-equiv' => 'Content-Type', :content => "text/html; charset=utf-8" }
+		%title 
+			Board
+		%link{ :rel => 'stylesheet', :type => 'text/css', :href => '/css/photon.css' }
+		%script{ :type => 'text/javascript', :src => '/js/jquery/init.js' }
+		%script{ :type => 'text/javascript', :src => '/js/jquery/form.js' }
+		%script{ :type => 'text/javascript', :src => '/js/jquery/hotkeys.js' }
+		%script{ :type => 'text/javascript', :src => '/js/jquery/scrollto.js' }
+		%script{ :type => 'text/javascript', :src => '/js/jquery/selection.js' }
+		%script{ :type => 'text/javascript', :src => '/js/jquery/caret.js' }
+		%script{ :type => 'text/javascript', :src => '/js/jquery/tooltip.js' }
+		%script{ :type => 'text/javascript', :src => '/js/main.js' }
+		-if @anal
+			%script{ :type => 'text/javascript', :src => '/js/anal.js' }
+			%link{ :rel => 'stylesheet', :type => 'text/css', :href => '/css/anal.css' }
+	%body
+		#container
+			#content
+				-if not params[:action] == 'index'
+					%a{ :href => root_path, :id => 'back_link' } ← вернуться
+				= yield

@@ -1,0 +1,35 @@
+.thread
+	.thread_wrapper
+		.picture
+			-if thread.picture
+				%a{ :href => thread.picture.path, :target => '_blank' }
+					%img{ :src => thread.picture.thumbnail_path }
+		.body	
+			%blockquote= thread.message.html_safe
+	.footer
+		-href = url_for :action => 'view', :id => thread.id
+		-if params[:action] == 'index'
+			%a{ :href => href }<>
+				= verbose_replies thread.replies
+			-s = @settings['seen']
+			-if s.has_key? thread.id.to_s
+				-if thread.replies > s[thread.id.to_s]
+					&nbsp;&nbsp;/&nbsp;&nbsp;
+					%a{ :href => href + '#new' }<>
+						-n = thread.replies - s[thread.id.to_s]
+						%b= verbose_replies n, 'new'
+			-else
+				-if thread.replies > 0
+					&nbsp;(#{verbose_replies thread.replies, 'unread'})
+		-else
+			%span{ :id => 'replies' }<>
+				="#{verbose_replies thread.replies}."
+				-if @seen
+					-if thread.replies > @seen
+						&nbsp;&nbsp;
+						%a{ :href => '#new' } Перейти к новым
+		="&nbsp;&nbsp;&nbsp;".html_safe if not params[:action] == 'view'
+		%span{ :class => 'date' }
+			-if @anal
+				%a{ :href => url_for(:controller => 'admin', :action => 'post', :id => thread.id), :class => 'new_window' } x
+			=verbose_date thread.created_at

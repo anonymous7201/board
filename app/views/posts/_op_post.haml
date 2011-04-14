@@ -1,0 +1,36 @@
+-cls = id = ''
+-if params[:action] == 'index'
+	-cls 	= 'op_post'
+	-id 	= nil
+-else
+	-id 	= 'op_post'
+	-cls 	= nil
+
+
+%div{ :id => id, :class => cls }
+	-if op_post.picture
+		%a{ :href => op_post.picture.path, :target => '_blank' }
+			%img{ :src => op_post.picture.thumbnail_path }
+	%h2= 					op_post.title
+	%span{ :class => 'footer' }
+		Тред ##{op_post.id}, создан
+		= verbose_date op_post.created_at
+		&nbsp;&nbsp;
+		-if params[:action] == 'index'
+			- href = url_for(:action => 'view', :id => op_post.id)
+			%a{ :href => href }<>
+				-if @settings['seen'].has_key? op_post.id.to_s
+					= verbose_replies op_post.replies
+					-seen = @settings['seen'][op_post.id.to_s] 
+				-else
+					-seen = nil
+					= verbose_replies op_post.replies, 'unread'
+			-if seen
+				-if op_post.replies > seen
+					, из них 
+					%b
+						%a{ :href => href + '#new' }
+							= verbose_replies op_post.replies - seen, 'new'
+				
+	%blockquote= 	op_post.message.html_safe
+	

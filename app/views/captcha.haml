@@ -1,0 +1,8 @@
+-cache(:action_suffix => 'captcha')  do
+	#recaptcha_widget{ :style => 'display: none' }
+		%label
+			Буквы с картинки:
+			%input{ :size => 16, :type => 'text', :id => 'recaptcha_response_field', :name => 'recaptcha_response_field' }
+		%a{ :href => 'javascript:Recaptcha.reload()' }
+			#recaptcha_image
+	%script{ :type => 'text/javascript', :src => "http://www.google.com/recaptcha/api/challenge?k=#{RCC_PUB}" }

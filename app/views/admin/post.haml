@@ -1,0 +1,42 @@
+#post_container
+	%span
+		\##{@post.id},
+		-if @post.root?
+			тред (#{verbose_replies @post.replies})
+			-p = 'posts/thread'
+		-else
+			-p = 'posts/post'
+			пост (в тред
+			%a{ :href => url_for(:action => 'post', :id => @post.root_id) }="##{@post.root_id}"
+			)
+		%form{ :method => 'post', :action => url_for(:action => 'delete'), :style => 'display:inline' }
+			%input{ :type => 'submit', :value => 'удалить' }
+	%form{ :method => 'post', :action => url_for(:action => 'update') }
+		#post
+			.picture{ :style => 'width:200px;height:200px' }
+				-if @post.picture
+					%img{ :src => @post.picture.thumbnail_path }
+					.field
+						%label
+							%input{ :type => 'checkbox', :name => 'delete_pic' }
+							удалить картинку
+			%textarea{ :name => 'message', :id => 'message' }	
+				= @post.message
+		.field
+			%label 
+				%input{ :type => 'checkbox', :name => 'ban' }
+				забанить автора на 
+				%input{ :type => 'text', :size => 1, :value => 5, :name => 'ban_days' }
+				дней за
+				%input{ :type => 'text', :name => 'ban_reason' }
+		.field
+			%label 
+				%input{ :type => 'checkbox', :name => 'delete_posts' }
+				удалить его посты за последние
+				%input{ :type => 'text', :size => 1, :value => 1, :name => 'delete_days' }
+				дней
+		%br
+		%br
+		%input{ :type => 'submit', :value => 'хуякс'  }
+
+		

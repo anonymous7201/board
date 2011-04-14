@@ -1,0 +1,14 @@
+%br
+%br
+%br
+
+Всего сейчас #{Post.count} постов.
+%form{ :method => 'post', :action => url_for(:action => 'toggle_captcha') }
+	Капча
+	-if $settings[:captcha] == true
+		включена.
+		-v = 'выключить'
+	-else
+		выключена.
+		-v = 'включить'
+	%input{ :type => 'submit', :value => v }

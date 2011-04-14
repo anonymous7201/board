@@ -1,0 +1,11 @@
+--- 
+chdir: /path/to/board
+environment: development
+address: 127.0.0.1
+port: 3000
+log: /path/to/board/log/thin.log
+pid: /path/to/board/tmp/pids/thin.pid
+max_conns: 1024
+max_persistent_conns: 512
+require: []
+daemonize: false
